@@ -148,7 +148,7 @@ the code:
 hogwarts_houses["Gryffindor"] //=> [hermioneGranger, ronWeasley, harryPotter]
 ```
 
-# Use `reduce()` to Create a Single Aggregate of All Items in a List.
+## Use `reduce()` to Create a Single Aggregate of All Items in a List.
 
 Let's say we are hard at work in the battery factory. We've assembled several
 batches of batteries today. Let's count how many assembled batteries we ended
