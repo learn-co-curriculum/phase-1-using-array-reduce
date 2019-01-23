@@ -78,7 +78,7 @@ console.log(reduce(couponLocations, couponCounter, 3)); // prints 18
 
 ## Demonstrate `reduce`
 
-With JavaScript’s reduce method, we don't need to write out all that code. The `reduce` method
+With JavaScript’s `reduce()` method, we don't need to write out all that code. The `reduce()` method
 is when we want to get something useful out of each element in the collection and gather that
 information into a final summary object or value. Let's take the native implementation with our
 previous example for a spin:
