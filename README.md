@@ -4,7 +4,7 @@
 
 * Define how the `reduce()` method works
 * Demonstrate `reduce()`
-* Use `reduce()` to create a single aggregate of all items in a list.
+* Use `reduce()` to create a single aggregate of all items in a list
 
 ## Introduction
 
@@ -152,7 +152,7 @@ hogwarts_houses["Gryffindor"] //=> [hermioneGranger, ronWeasley, harryPotter]
 
 Let's say we are hard at work in the battery factory. We've assembled several
 batches of batteries today. Let's count how many assembled batteries we ended
-up with, while on a lunch break.
+up with.
 
 * Create a new variable called `totalBatteries` which is the sum of all of the
 battery amounts in the `batteryBatches` array. Naturally, use `reduce()` for this!
