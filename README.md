@@ -4,6 +4,7 @@
 
 * Define how the `reduce()` method works
 * Demonstrate `reduce()`
+* Use `reduce()` to create a single aggregate of all items in a list
 
 ## Introduction
 
@@ -77,7 +78,7 @@ console.log(reduce(couponLocations, couponCounter, 3)); // prints 18
 
 ## Demonstrate `reduce`
 
-With JavaScript’s reduce method, we don't need to write out all that code. The `reduce` method
+With JavaScript’s `reduce()` method, we don't need to write out all that code. The `reduce()` method
 is when we want to get something useful out of each element in the collection and gather that
 information into a final summary object or value. Let's take the native implementation with our
 previous example for a spin:
@@ -146,6 +147,15 @@ the code:
 ```js
 hogwarts_houses["Gryffindor"] //=> [hermioneGranger, ronWeasley, harryPotter]
 ```
+
+## Use `reduce()` to Create a Single Aggregate of All Items in a List.
+
+Let's say we are hard at work in the battery factory. We've assembled several
+batches of batteries today. Let's count how many assembled batteries we ended
+up with.
+
+* Create a new variable called `totalBatteries` which is the sum of all of the
+battery amounts in the `batteryBatches` array. Naturally, use `reduce()` for this!
 
 ## Conclusion
 
