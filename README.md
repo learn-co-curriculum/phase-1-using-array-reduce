@@ -41,7 +41,7 @@ function getTotalAmountForProducts(products) {
   let totalPrice = 0;
 
   products.forEach(product => {
-      totalPrice += product.price;
+    totalPrice += product.price;
   });
 
   return totalPrice;
