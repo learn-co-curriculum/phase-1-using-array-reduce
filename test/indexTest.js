@@ -1,4 +1,4 @@
-const expect = chai.expect;
+const sinon = require( 'sinon' )
 
 describe('reducer', function() {
   describe('batteries', function() {
