@@ -40,7 +40,7 @@ has finished, we return our `totalPrice` result:
 function getTotalAmountForProducts(products) {
   let totalPrice = 0;
 
-  products.forEach(product => {
+  products.forEach(function(product) {
     totalPrice += product.price;
   });
 
@@ -90,7 +90,7 @@ console.log(couponLocations.reduce(couponCounter, 0)); // also prints 15!
 Another simple numerical example:
 
 ```js
-let doubledAndSummed = [1, 2, 3].reduce( (total, element) => element * 2 + total, 0)
+let doubledAndSummed = [1, 2, 3].reduce(function(total, element){ return element * 2 + total}, 0)
 // => 12
 ```
 
@@ -107,14 +107,14 @@ If _no_ initial value is supplies, the first element is used _without having
 been used in the function_:
 
 ```js
-let doubledAndSummed = [1, 2, 3].reduce( (total, element) => element * 2 + total)
+let doubledAndSummed = [1, 2, 3].reduce(function(total, element){ return element * 2 + total})
 // => 11
 ```
 
 The initialization value can be changed:
 
 ```js
-let doubledAndSummedFromTen = [1, 2, 3].reduce( (total, element) => element * 2 + total, 10)
+let doubledAndSummedFromTen = [1, 2, 3].reduce(function(total, element){ return element * 2 + total}, 10)
 // => 22
 ```
 
@@ -136,7 +136,7 @@ Assume sorting_hat.assign() returns a String ("Slytherin", "Gryffindor",
 
 */
 
-incoming_students.reduce( (houses, student) => houses[sorting_hat.assign(student)].push(student) , hogwarts_houses)
+incoming_students.reduce(function(houses, student) { houses[sorting_hat.assign(student)].push(student)} , hogwarts_houses)
 ```
 
 Here we iterate a collection of students and assign each one to a pre-existing
