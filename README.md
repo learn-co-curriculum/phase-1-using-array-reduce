@@ -15,7 +15,7 @@ value — it could be, for example, a string, a number, a boolean. For example,
 our friend has a driver's license and a vehicle, but is very bad at keeping an
 eye on the parking meter. They've got dozens of parking tickets with fees.
 Wouldn't it be great if we could _reduce_ all of those parking fees to a _single_
-total value? 
+total value?
 
 ## Define How the `reduce()` Method Works
 
@@ -50,7 +50,7 @@ function getTotalAmountForProducts(products) {
 console.log(getTotalAmountForProducts(products)); // prints 33.46
 ```
 
-This is a very basic way to manually add together the prices of the products we want to buy. 
+This is a very basic way to manually add together the prices of the products we want to buy.
 
 To abstract this further, let's count the number of coupons we have lying around the house:
 
@@ -66,14 +66,14 @@ function couponCounter(totalAmount, location) {
   return totalAmount + location.amount;
 }
 
-console.log(reduce(couponLocations, couponCounter, 0)); // prints 15
+console.log(couponLocations.reduce(couponCounter, 0)); // prints 15
 ```
 
 What if we already have three coupons in our hand? We can easily account for that by adjusting
 the initial value:
 
 ```js
-console.log(reduce(couponLocations, couponCounter, 3)); // prints 18
+console.log(couponLocations.reduce(couponCounter, 3)); // prints 18
 ```
 
 ## Demonstrate `reduce`
