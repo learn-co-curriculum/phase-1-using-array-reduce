@@ -50,9 +50,12 @@ function getTotalAmountForProducts(products) {
 console.log(getTotalAmountForProducts(products)); // prints 33.46
 ```
 
-This is a very basic way to manually add together the prices of the products we want to buy.
+This is a very basic way to manually add together the prices of the products we want to buy,
+but it only works for this very specific situation. We could make our solution more abstract 
+by writing a generalized function that accepts two additional arguments: an initial value and 
+a callback function that implements the reduce functionality we want.
 
-To abstract this further, let's count the number of coupons we have lying around the house:
+To see what this might look like, let's count the number of coupons we have lying around the house:
 
 ```js
 const couponLocations = [
@@ -62,26 +65,41 @@ const couponLocations = [
   { room: 'Master bedroom', amount: 7 }
 ];
 
+function ourReduce(arr, reducer, init) {
+    let accum = init;
+    arr.forEach(element => {
+        accum = reducer(accum, element);
+    });
+    return accum;
+}
+
 function couponCounter(totalAmount, location) {
   return totalAmount + location.amount;
 }
 
-console.log(couponLocations.reduce(couponCounter, 0)); // prints 15
+console.log(ourReduce(couponLocations, couponCounter, 0)); // prints 15
 ```
 
-What if we already have three coupons in our hand? We can easily account for that by adjusting
-the initial value:
+`ourReduce` accepts three arguments: the array we want to reduce, the callback function, and 
+the initial value. It then iterates over the array, calling the reducer function each time, 
+which updates the value of the accumulator. The final value of the accumulator is returned 
+at the end. 
+
+Note that `ourReduce` is generalized: the specifics (the callback function and initial value) 
+have been abstracted out, making our code more flexible. If, for example, we already have 
+three coupons in our hand, we can easily account for that by adjusting the initial value 
+when we call `ourReduce`, without having to change any code:
 
 ```js
-console.log(couponLocations.reduce(couponCounter, 3)); // prints 18
+console.log(ourReduce(couponLocations, couponCounter, 3)); // prints 18
 ```
 
 ## Demonstrate `reduce`
 
-With JavaScript’s `reduce()` method, we don't need to write out all that code. The `reduce()` method
-is when we want to get something useful out of each element in the collection and gather that
-information into a final summary object or value. Let's take the native implementation with our
-previous example for a spin:
+With JavaScript’s `reduce()` method, we don't need to write our own version. Just like `ourReduce`,
+the `reduce()` method is used when we want to get something useful out of each element in the 
+collection and gather that information into a final summary object or value. Let's take the native 
+implementation with our previous example for a spin:
 
 ```js
 console.log(couponLocations.reduce(couponCounter, 0)); // also prints 15!
@@ -103,7 +121,7 @@ becomes the new `total` for the next iteration. When there's nothing left to
 iterate, the total is returned.
 
 The initialization value can be left out but it might lead to a real surprise.
-If _no_ initial value is supplies, the first element is used _without having
+If _no_ initial value is supplied, the first element is used _without having
 been used in the function_:
 
 ```js
