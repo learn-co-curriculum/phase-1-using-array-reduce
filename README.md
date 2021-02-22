@@ -2,25 +2,25 @@
 
 ## Learning Goals
 
-* Define how the `reduce()` method works
-* Demonstrate `reduce()`
-* Use `reduce()` to create a single aggregate of all items in a list
+* Learn how the `reduce()` method works
+* Demonstrate using `reduce()` with a primitive return value
+* Demonstrate using `reduce()` with an object as the return value
 
 ## Introduction
 
-In the world of programming, we often work with lists. Sometimes we want to
-transform elements in that list to another value — but other times, we want to
-**aggregate** a result. In other words, we want to _reduce_ a list to a single
-value — it could be, for example, a string, a number, a boolean. For example,
-our friend has a driver's license and a vehicle, but is very bad at keeping an
-eye on the parking meter. They've got dozens of parking tickets with fees.
-Wouldn't it be great if we could _reduce_ all of those parking fees to a _single_
-total value?
+In the world of programming, we often work with lists. Sometimes we want to find
+or transform elements in a list, but other times we might want to create a
+single summary value. In this lesson, we'll learn how to use the `reduce()`
+iterator method to **aggregate** a result, i.e., to _reduce_ a list to a single
+value. That value can be a string, a number, a boolean, etc.
 
-## Define How the `reduce()` Method Works
+To better understand how `reduce()` works, we'll start by building our own
+version.
 
-To illustrate how `reduce()` works, we'll make up some store data, we're interested in
-getting a total price of all products in our basket. The store data looks like this:
+## Learn How the `reduce()` Method Works
+
+Let's say we have a bunch of grocery items in our basket and we want to
+calculate the total price. Our basket data might look like this:
 
 ```js
 const products = [
@@ -31,31 +31,35 @@ const products = [
 ];
 ```
 
-We're going to reduce the array of products to a _single value_— in this case the total
-price of all products in the basket. Let's create a function that has an initial value,
-then iterates the given products and adds their price to the total price. When the loop
-has finished, we return our `totalPrice` result:
+We're going to _reduce_ the array of products to a _single value_: the total
+price. To do this, we'll create a `getTotalAmountForProducts()` function:
 
 ```js
 function getTotalAmountForProducts(products) {
   let totalPrice = 0;
 
-  products.forEach(function(product) {
+  for (const product of products) {
     totalPrice += product.price;
-  });
+  };
 
   return totalPrice;
 }
 
-console.log(getTotalAmountForProducts(products)); // prints 33.46
+console.log(getTotalAmountForProducts(products)); // LOG: 33.46
 ```
 
-This is a very basic way to manually add together the prices of the products we want to buy,
-but it only works for this very specific situation. We could make our solution more abstract 
-by writing a generalized function that accepts two additional arguments: an initial value and 
-a callback function that implements the reduce functionality we want.
+We first declare a `totalPrice` variable and set its initial value to 0. We then
+iterate through the products in the basket and add the price of each to the
+total. When the loop has finished, we return the `totalPrice`.
 
-To see what this might look like, let's count the number of coupons we have lying around the house:
+This is a very basic way to manually add together the prices of the products we
+want to buy, but it only works for this very specific situation. We could make
+our solution more abstract by writing a generalized function that accepts two
+additional arguments: an initial value and a callback function that implements
+the reduce functionality we want.
+
+To see what this might look like, let's count the number of coupons we have
+lying around the house:
 
 ```js
 const couponLocations = [
@@ -67,9 +71,9 @@ const couponLocations = [
 
 function ourReduce(arr, reducer, init) {
     let accum = init;
-    arr.forEach(element => {
+    for (const element of arr) {
         accum = reducer(accum, element);
-    });
+    };
     return accum;
 }
 
@@ -77,111 +81,148 @@ function couponCounter(totalAmount, location) {
   return totalAmount + location.amount;
 }
 
-console.log(ourReduce(couponLocations, couponCounter, 0)); // prints 15
+console.log(ourReduce(couponLocations, couponCounter, 0)); // LOG: 15
 ```
 
-`ourReduce` accepts three arguments: the array we want to reduce, the callback function, and 
-the initial value. It then iterates over the array, calling the reducer function each time, 
-which updates the value of the accumulator. The final value of the accumulator is returned 
-at the end. 
+`ourReduce()` accepts three arguments: the array we want to reduce, the callback
+function or _reducer_, and the initial value for our _accumulator_ variable.
+It then iterates over the array, calling the reducer function each time, which
+returns the updated value of the accumulator. The final value of the accumulator
+is returned at the end.
 
-Note that `ourReduce` is generalized: the specifics (the callback function and initial value) 
-have been abstracted out, making our code more flexible. If, for example, we already have 
-three coupons in our hand, we can easily account for that by adjusting the initial value 
-when we call `ourReduce`, without having to change any code:
+Note that `ourReduce()` is generalized: the specifics (the callback function and
+initial value) have been abstracted out, making our code more flexible. If, for
+example, we already have three coupons in our hand, we can easily account for
+that without having to change any code by adjusting the initial value when we
+call `ourReduce()`:
 
 ```js
-console.log(ourReduce(couponLocations, couponCounter, 3)); // prints 18
+console.log(ourReduce(couponLocations, couponCounter, 3)); // LOG: 18
 ```
 
-## Demonstrate `reduce`
+## Demonstrate using `reduce()` with a Primitive Return Value
 
-With JavaScript’s `reduce()` method, we don't need to write our own version. Just like `ourReduce`,
-the `reduce()` method is used when we want to get something useful out of each element in the 
-collection and gather that information into a final summary object or value. Let's take the native 
-implementation with our previous example for a spin:
+With JavaScript’s native `reduce()` method, we don't need to write our own
+version. Just like `ourReduce`, the `reduce()` method is used when we want to
+get some information from each element in the collection and gather that
+information into a final summary value. Let's take the native implementation for
+a spin with our previous example:
 
 ```js
-console.log(couponLocations.reduce(couponCounter, 0)); // also prints 15!
+console.log(couponLocations.reduce(couponCounter, 0)); // also logs 15!
 ```
 
 Another simple numerical example:
 
 ```js
-let doubledAndSummed = [1, 2, 3].reduce(function(total, element){ return element * 2 + total}, 0)
+const doubledAndSummed = [1, 2, 3].reduce(function(accumulator, element){ return element * 2 + accumulator}, 0)
 // => 12
 ```
 
-Here, for each element, JavaScript passes it and the running total (initialized
-to 0, in the second argument to `reduce()`) into the function. The function
-multiplies the element by `2` and adds that to the current total.
+Here, as in the previous example, we are calling `.reduce()` on our input array
+and passing it two arguments: the callback function, and an optional start value
+for the accumulator (0 in this example). `.reduce()` executes the callback for
+each element in turn, passing in the current value of the accumulator and the
+current element each time. The callback updates the value of the accumulator in
+each iteration, and that updated value is then passed as the first argument to
+the callback in the next iteration. When there's nothing left to iterate, the
+final value of the accumulator (the total) is returned.
 
-That sum (`2 * element + total`) is the return value of the function and
-becomes the new `total` for the next iteration. When there's nothing left to
-iterate, the total is returned.
-
-The initialization value can be left out but it might lead to a real surprise.
-If _no_ initial value is supplied, the first element is used _without having
-been used in the function_:
+The initialization value is optional, but leaving it out might lead to a real
+surprise. If no initial value is supplied, the _first element in the array_ is
+used as the starting value. `reduce()` then executes the callback function,
+passing this starting value and the _second_ element of the array as the two
+arguments. In other words, the code inside the callback **is never executed**
+for the first element in the array. This can lead to unexpected results:
 
 ```js
-let doubledAndSummed = [1, 2, 3].reduce(function(total, element){ return element * 2 + total})
+const doubledAndSummed = [1, 2, 3].reduce(function(accumulator, element){ return element * 2 + accumulator})
 // => 11
 ```
 
-The initialization value can be changed:
+In some cases, it won't matter (e.g., if our reducer is simply summing the
+elements of the input array). However, to be safe, it is best to always pass a
+start value when calling `reduce()`. Of course, that initial value can be
+anything we like:
 
 ```js
-let doubledAndSummedFromTen = [1, 2, 3].reduce(function(total, element){ return element * 2 + total}, 10)
+const doubledAndSummedFromTen = [1, 2, 3].reduce(function(accumulator, element){ return element * 2 + accumulator}, 10)
 // => 22
 ```
 
-For more powerful uses, we could use:
+## Demonstrate using `reduce()` with an Object as the Return Value
+
+The output of the `reduce()` method does not need to be a primitive value like a
+`Number` or `String`. Let's consider an example that accumulates array values
+into an `Object`.
+
+Say we want to create a roster of student wizards assigned to each Hogwarts
+house. Our start value might look like this:
 
 ```js
 
-let hogwarts_houses = {
+const hogwartsHouses = {
   "Slytherin": [],
   "Gryffindor": [],
   "Hufflepuff": [],
   "Ravenclaw": []
 }
 
-/*
-
-Assume sorting_hat.assign() returns a String ("Slytherin", "Gryffindor",
-"Hufflepuff", "Ravenclaw") based on the argument passed in.
-
-*/
-
-incoming_students.reduce(function(houses, student) { houses[sorting_hat.assign(student)].push(student)} , hogwarts_houses)
 ```
 
-Here we iterate a collection of students and assign each one to a pre-existing
-accumulator `Object`. We ask the `Object` to look up an `Array` keyed by the
-name of the houses. We then `push()` the student into that `Array`. Later in
-the code:
+Imagine we also have a `sortingHat` object that includes an `assign()` method.
+That method takes the name of a student as its argument and returns the name of
+the house the student should be assigned to. We could call this method directly:
 
 ```js
-hogwarts_houses["Gryffindor"] //=> [hermioneGranger, ronWeasley, harryPotter]
+sortingHat.assign(studentName);
 ```
 
-## Use `reduce()` to Create a Single Aggregate of All Items in a List.
+But that would just return the name of the assigned house for that one student;
+it wouldn't update our `hogwartsHouses` object.
+
+To do that, we can call reduce on our input array (which contains the names of
+all incoming students), passing a callback function and the start value of
+`hogwartsHouses` as the arguments. The callback is where we'll push each student
+name into the appropriate house:
+
+```js
+incomingStudents.reduce(function(houses, student) { houses[sortingHat.assign(student)].push(student)}, hogwartsHouses)
+```
+
+Let's break this down: `.reduce()` executes the callback for each student name
+in turn. Inside the callback, the `sortingHat.assign()` method is called with
+the current student name as its argument. `assign()` returns the name of a
+Hogwarts house, which is used as the key to access the correct array in the
+`hogwartsHouses` object and push the student's name into it. The iteration then
+continues to the next element in the array, passing the next student name and
+the updated value of `hogwartsHouses` as the arguments. Once `reduce()` has
+iterated through all the students in `incomingStudents`, it returns the updated
+value of `hogwartsHouses`.
+
+Then we can then access the list of students in any Hogwarts house:
+
+```js
+hogwartsHouses["Gryffindor"] //=> [hermioneGranger, ronWeasley, harryPotter]
+```
+
+## Lab: Use `reduce()` to Create a Single Aggregate of All Items in a List
 
 Let's say we are hard at work in the battery factory. We've assembled several
 batches of batteries today. Let's count how many assembled batteries we ended
 up with.
 
-* Create a new variable called `totalBatteries` which is the sum of all of the
-battery amounts in the `batteryBatches` array. Naturally, use `reduce()` for this!
+* Create a new variable called `totalBatteries`, which holds the sum of all of
+  the battery amounts in the `batteryBatches` array. (Note that the
+  `batteryBatches` variable has been provided for you in `index.js`.) Naturally,
+  you should use `reduce()` for this!
 
 ## Conclusion
 
-With `reduce()`, like many other enumerators in the JavaScript library, we are able
-to quickly get a minimized list or a total sum from a set of values, including values
-that we might have filtered out of a list. With this, we can greatly cut down the
-amount of time spent recreating common functionality, or building out helper methods
-for commonly used functionality from scratch.
+With `reduce()`, we are able to quickly get a single summary value from the
+elements in an array. `reduce()` — like the other iterator methods we've learned
+about in this section — can greatly cut down the amount of time spent recreating
+common functionality. It can also make our code more efficient and expressive.
 
 ## Resources
 
