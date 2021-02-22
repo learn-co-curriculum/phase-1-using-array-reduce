@@ -178,8 +178,8 @@ the house the student should be assigned to. We could call this method directly:
 sortingHat.assign(studentName);
 ```
 
-But that would just return the name of the assigned house for that one student;
-it wouldn't update our `hogwartsHouses` object.
+But that just returns the name of the assigned house for that one student; it
+doesn't update our `hogwartsHouses` object.
 
 To do that, we can call reduce on our input array (which contains the names of
 all incoming students), passing a callback function and the start value of
@@ -193,11 +193,11 @@ incomingStudents.reduce(function(houses, student) { houses[sortingHat.assign(stu
 Let's break this down: `.reduce()` executes the callback for each student name
 in turn. Inside the callback, the `sortingHat.assign()` method is called with
 the current student name as its argument. `assign()` returns the name of a
-Hogwarts house, which is used as the key to access the correct array in the
+Hogwarts house, which is then used as the key to access the correct array in the
 `hogwartsHouses` object and push the student's name into it. The iteration then
 continues to the next element in the array, passing the next student name and
 the updated value of `hogwartsHouses` as the arguments. Once `reduce()` has
-iterated through all the students in `incomingStudents`, it returns the updated
+iterated through all the students in `incomingStudents`, it returns the final
 value of `hogwartsHouses`.
 
 Then we can then access the list of students in any Hogwarts house:
