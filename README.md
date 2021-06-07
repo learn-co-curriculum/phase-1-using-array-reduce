@@ -1,4 +1,4 @@
-# Iterator Drill: Reduce
+# Using the Array Reduce Method
 
 ## Learning Goals
 
