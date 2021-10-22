@@ -170,12 +170,12 @@ const hogwartsHouses = {
 
 ```
 
-Imagine we also have a `sortingHat` object that includes an `assign()` method.
+Imagine we also have a `sortingHat` object that includes a `houseAssign()` method.
 That method takes the name of a student as its argument and returns the name of
 the house the student should be assigned to. We could call this method directly:
 
 ```js
-sortingHat.assign(studentName);
+sortingHat.houseAssign(studentName);
 ```
 
 But that just returns the name of the assigned house for that one student; it
@@ -187,12 +187,12 @@ all incoming students), passing a callback function and the start value of
 name into the appropriate house:
 
 ```js
-incomingStudents.reduce(function(houses, student) { houses[sortingHat.assign(student)].push(student)}, hogwartsHouses)
+incomingStudents.reduce(function(houses, student) { houses[sortingHat.houseAssign(student)].push(student)}, hogwartsHouses)
 ```
 
 Let's break this down: `.reduce()` executes the callback for each student name
-in turn. Inside the callback, the `sortingHat.assign()` method is called with
-the current student name as its argument. `assign()` returns the name of a
+in turn. Inside the callback, the `sortingHat.houseAssign()` method is called with
+the current student name as its argument. `houseAssign()` returns the name of a
 Hogwarts house, which is then used as the key to access the correct array in the
 `hogwartsHouses` object and push the student's name into it. The iteration then
 continues to the next element in the array, passing the next student name and
