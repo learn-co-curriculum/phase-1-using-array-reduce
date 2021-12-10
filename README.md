@@ -195,7 +195,7 @@ incomingStudents.reduce(function(showcases, student) { showcases[sortingObject.s
 Let's break this down: `.reduce()` executes the callback for each student name
 in turn. Inside the callback, the `sortingObject.showcaseAssign()` method is
 called with the current student name as its argument. `showcaseAssign()` returns
-the name of a Arts Showcase, which is then used as the key to access the
+the name of an Arts Showcase, which is then used as the key to access the
 correct array in the `allShowcases` object and push the student's name into it.
 The iteration then continues to the next element in the array, passing the next
 student name and the updated value of `allShowcases` as the arguments. Once
