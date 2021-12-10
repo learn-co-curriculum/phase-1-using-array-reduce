@@ -171,13 +171,13 @@ const showcases = {
 
 ```
 
-Imagine we also have a `sortingObject` object that includes a `showcaseAssign()`
+Imagine we also have a `studentSorter` object that includes a `showcaseAssign()`
 method. That method takes the name of a student as its argument and returns the
 name of the showcase the student should be assigned to. We could call this
 method directly:
 
 ```js
-sortingObject.showcaseAssign(studentName);
+studentSorter.showcaseAssign(studentName);
 ```
 
 But that just returns the name of the assigned showcase for that one student; it
@@ -189,11 +189,11 @@ all incoming students), passing a callback function and the start value of
 name into the appropriate showcase:
 
 ```js
-incomingStudents.reduce(function(showcases, student) { showcases[sortingObject.showcaseAssign(student)].push(student)}, allShowcases)
+incomingStudents.reduce(function(showcases, student) { showcases[studentSorter.showcaseAssign(student)].push(student)}, allShowcases)
 ```
 
 Let's break this down: `.reduce()` executes the callback for each student name
-in turn. Inside the callback, the `sortingObject.showcaseAssign()` method is
+in turn. Inside the callback, the `studentSorter.showcaseAssign()` method is
 called with the current student name as its argument. `showcaseAssign()` returns
 the name of a Arts Showcase, which is then used as the key to access the
 correct array in the `allShowcases` object and push the student's name into it.
