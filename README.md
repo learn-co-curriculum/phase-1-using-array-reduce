@@ -156,54 +156,56 @@ The output of the `reduce()` method does not need to be a primitive value like a
 `Number` or `String`. Let's consider an example that accumulates array values
 into an `Object`.
 
-Say we want to create a roster of student wizards assigned to each Hogwarts
-house. Our start value might look like this:
+Say we want to create a roster of student artists based on their discipline of
+art for their final showcase. Our start value might look like this:
 
 ```js
 
-const hogwartsHouses = {
-  "Slytherin": [],
-  "Gryffindor": [],
-  "Hufflepuff": [],
-  "Ravenclaw": []
+const showcases = {
+  "Dance": [],
+  "Visual": [],
+  "Music": [],
+  "Theater": [],
+  "Writing": []
 }
 
 ```
 
-Imagine we also have a `sortingHat` object that includes a `houseAssign()` method.
-That method takes the name of a student as its argument and returns the name of
-the house the student should be assigned to. We could call this method directly:
+Imagine we also have a `studentSorter` object that includes a `showcaseAssign()`
+method. That method takes the name of a student as its argument and returns the
+name of the showcase the student should be assigned to. We could call this
+method directly:
 
 ```js
-sortingHat.houseAssign(studentName);
+studentSorter.showcaseAssign(studentName);
 ```
 
-But that just returns the name of the assigned house for that one student; it
-doesn't update our `hogwartsHouses` object.
+But that just returns the name of the assigned showcase for that one student; it
+doesn't update our `allShowcases` object.
 
 To do that, we can call reduce on our input array (which contains the names of
 all incoming students), passing a callback function and the start value of
-`hogwartsHouses` as the arguments. The callback is where we'll push each student
-name into the appropriate house:
+`artShowcases` as the arguments. The callback is where we'll push each student
+name into the appropriate showcase:
 
 ```js
-incomingStudents.reduce(function(houses, student) { houses[sortingHat.houseAssign(student)].push(student)}, hogwartsHouses)
+incomingStudents.reduce(function(showcases, student) { showcases[studentSorter.showcaseAssign(student)].push(student)}, allShowcases)
 ```
 
 Let's break this down: `.reduce()` executes the callback for each student name
-in turn. Inside the callback, the `sortingHat.houseAssign()` method is called with
-the current student name as its argument. `houseAssign()` returns the name of a
-Hogwarts house, which is then used as the key to access the correct array in the
-`hogwartsHouses` object and push the student's name into it. The iteration then
-continues to the next element in the array, passing the next student name and
-the updated value of `hogwartsHouses` as the arguments. Once `reduce()` has
-iterated through all the students in `incomingStudents`, it returns the final
-value of `hogwartsHouses`.
+in turn. Inside the callback, the `studentSorter.showcaseAssign()` method is
+called with the current student name as its argument. `showcaseAssign()` returns
+the name of an Arts Showcase, which is then used as the key to access the
+correct array in the `allShowcases` object and push the student's name into it.
+The iteration then continues to the next element in the array, passing the next
+student name and the updated value of `allShowcases` as the arguments. Once
+`reduce()` has iterated through all the students in `incomingStudents`, it
+returns the final value of `allShowcases`.
 
-Then we can then access the list of students in any Hogwarts house:
+Then we can then access the list of students in any Arts Showcase:
 
 ```js
-hogwartsHouses["Gryffindor"] //=> [hermioneGranger, ronWeasley, harryPotter]
+allShowcases["Visual"] //=> [yishayGarbasz, wuTsang, mickaleneThomas]
 ```
 
 ## Lab: Use `reduce()` to Create a Single Aggregate of All Items in a List
