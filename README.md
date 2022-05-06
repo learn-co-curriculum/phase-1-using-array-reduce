@@ -153,11 +153,35 @@ const doubledAndSummedFromTen = [1, 2, 3].reduce(function(accumulator, element){
 ## Demonstrate using `reduce()` with an Object as the Return Value
 
 The output of the `reduce()` method does not need to be a primitive value like a
-`Number` or `String`. Let's consider an example that accumulates array values
-into an `Object`.
+`Number` or `String`. Let's consider a couple of examples that accumulates array
+values into an `Object`.
 
-Say we want to create a roster of student artists based on their discipline of
-art for their final showcase. Our start value might look like this:
+First, let's look at an example where we take an array of letters and return
+an object with letters as keys and their count in the array as values.
+
+```js
+const letters = ['a', 'b', 'c', 'b', 'a', 'a'];
+
+const lettersCount = letters.reduce(function(countObj, currentLetter) {
+  if (currentLetter in countObj) {
+    countObj[currentLetter]++;
+  } else {
+    countObj[currentLetter] = 1;
+  }
+  return countObj;
+}, {});
+
+console.log(lettersCount); // { a: 3, b: 2, c: 1 }
+```
+
+We initialize the `countObj` as an empty object by passing `{}` as the second
+argument to the `reduce` method. The callback method increments the current
+letter's count in the `countObj` if it already exists otherwise, initializes it to
+`1`.
+
+Let's look at a more complex example now. Say we want to create a roster of
+student artists based on their discipline of art for their final showcase.
+Our start value might look like this:
 
 ```js
 
@@ -189,7 +213,9 @@ all incoming students), passing a callback function and the start value of
 name into the appropriate showcase:
 
 ```js
-incomingStudents.reduce(function(showcases, student) { showcases[studentSorter.showcaseAssign(student)].push(student)}, allShowcases)
+incomingStudents.reduce(function(showcases, student) { 
+  showcases[studentSorter.showcaseAssign(student)].push(student)
+}, allShowcases)
 ```
 
 Let's break this down: `.reduce()` executes the callback for each student name
