@@ -185,7 +185,7 @@ Our start value might look like this:
 
 ```js
 
-const showcases = {
+const artsShowcases = {
   "Dance": [],
   "Visual": [],
   "Music": [],
@@ -197,41 +197,40 @@ const showcases = {
 
 Imagine we also have a `studentSorter` object that includes a `showcaseAssign()`
 method. That method takes the name of a student as its argument and returns the
-name of the showcase the student should be assigned to. We could call this
-method directly:
+name of the showcase the student should be assigned to. Note that we have not
+coded out the `showcaseAssign()` method — the details of how it would work are
+not important for our purposes. What's important to remember is that the method
+takes the name of a student as an argument and returns one of the five showcases:
+"Dance", "Visual", "Music", "Theater" or "Writing". We want to call the method
+for each element in our input array (each student's name), get the value of the
+showcase that's returned, and add the student's name to the array for that
+showcase in the `artsShowcases` object.
 
-```js
-studentSorter.showcaseAssign(studentName);
-```
-
-But that just returns the name of the assigned showcase for that one student; it
-doesn't update our `allShowcases` object.
-
-To do that, we can call reduce on our input array (which contains the names of
-all incoming students), passing a callback function and the start value of
-`artShowcases` as the arguments. The callback is where we'll push each student
-name into the appropriate showcase:
+To do that, we will call reduce on our input array, `incomingStudents`, which
+contains the names of all incoming students, passing a callback function and the
+start value of `artsShowcases` as the arguments. The callback is where we'll
+push each student name into the appropriate showcase:
 
 ```js
 incomingStudents.reduce(function(showcases, student) { 
   showcases[studentSorter.showcaseAssign(student)].push(student)
-}, allShowcases)
+}, artsShowcases)
 ```
 
 Let's break this down: `.reduce()` executes the callback for each student name
 in turn. Inside the callback, the `studentSorter.showcaseAssign()` method is
 called with the current student name as its argument. `showcaseAssign()` returns
 the name of an Arts Showcase, which is then used as the key to access the
-correct array in the `allShowcases` object and push the student's name into it.
+correct array in the `artsShowcases` object and push the student's name into it.
 The iteration then continues to the next element in the array, passing the next
-student name and the updated value of `allShowcases` as the arguments. Once
+student name and the updated value of `artsShowcases` as the arguments. Once
 `reduce()` has iterated through all the students in `incomingStudents`, it
-returns the final value of `allShowcases`.
+returns the final value of `artsShowcases`.
 
 Then we can then access the list of students in any Arts Showcase:
 
 ```js
-allShowcases["Visual"] //=> [yishayGarbasz, wuTsang, mickaleneThomas]
+artsShowcases["Visual"] //=> [yishayGarbasz, wuTsang, mickaleneThomas]
 ```
 
 ## Lab: Use `reduce()` to Create a Single Aggregate of All Items in a List
