@@ -2,9 +2,9 @@
 
 ## Learning Goals
 
-* Learn how the `reduce()` method works
-* Demonstrate using `reduce()` with a primitive return value
-* Demonstrate using `reduce()` with an object as the return value
+- Learn how the `reduce()` method works
+- Demonstrate using `reduce()` with a primitive return value
+- Demonstrate using `reduce()` with an object as the return value
 
 ## Introduction
 
@@ -24,10 +24,10 @@ calculate the total price. Our basket data might look like this:
 
 ```js
 const products = [
-  { name: 'Shampoo', price: 4.99 },
-  { name: 'Donuts', price: 7.99 },
-  { name: 'Cookies', price: 6.49 },
-  { name: 'Bath Gel', price: 13.99 }
+  { name: "Shampoo", price: 4.99 },
+  { name: "Donuts", price: 7.99 },
+  { name: "Cookies", price: 6.49 },
+  { name: "Bath Gel", price: 13.99 },
 ];
 ```
 
@@ -40,7 +40,7 @@ function getTotalAmountForProducts(products) {
 
   for (const product of products) {
     totalPrice += product.price;
-  };
+  }
 
   return totalPrice;
 }
@@ -63,18 +63,18 @@ lying around the house:
 
 ```js
 const couponLocations = [
-  { room: 'Living room', amount: 5 },
-  { room: 'Kitchen', amount: 2 },
-  { room: 'Bathroom', amount: 1 },
-  { room: 'Master bedroom', amount: 7 }
+  { room: "Living room", amount: 5 },
+  { room: "Kitchen", amount: 2 },
+  { room: "Bathroom", amount: 1 },
+  { room: "Master bedroom", amount: 7 },
 ];
 
 function ourReduce(arr, reducer, init) {
-    let accum = init;
-    for (const element of arr) {
-        accum = reducer(accum, element);
-    };
-    return accum;
+  let accum = init;
+  for (const element of arr) {
+    accum = reducer(accum, element);
+  }
+  return accum;
 }
 
 function couponCounter(totalAmount, location) {
@@ -115,7 +115,9 @@ console.log(couponLocations.reduce(couponCounter, 0)); // also logs 15!
 Another simple numerical example:
 
 ```js
-const doubledAndSummed = [1, 2, 3].reduce(function(accumulator, element){ return element * 2 + accumulator}, 0)
+const doubledAndSummed = [1, 2, 3].reduce(function (accumulator, element) {
+  return element * 2 + accumulator;
+}, 0);
 // => 12
 ```
 
@@ -136,7 +138,9 @@ arguments. In other words, the code inside the callback **is never executed**
 for the first element in the array. This can lead to unexpected results:
 
 ```js
-const doubledAndSummed = [1, 2, 3].reduce(function(accumulator, element){ return element * 2 + accumulator})
+const doubledAndSummed = [1, 2, 3].reduce(function (accumulator, element) {
+  return element * 2 + accumulator;
+});
 // => 11
 ```
 
@@ -146,7 +150,13 @@ start value when calling `reduce()`. Of course, that initial value can be
 anything we like:
 
 ```js
-const doubledAndSummedFromTen = [1, 2, 3].reduce(function(accumulator, element){ return element * 2 + accumulator}, 10)
+const doubledAndSummedFromTen = [1, 2, 3].reduce(function (
+  accumulator,
+  element
+) {
+  return element * 2 + accumulator;
+},
+10);
 // => 22
 ```
 
@@ -160,9 +170,9 @@ First, let's look at an example where we take an array of letters and return
 an object with letters as keys and their count in the array as values.
 
 ```js
-const letters = ['a', 'b', 'c', 'b', 'a', 'a'];
+const letters = ["a", "b", "c", "b", "a", "a"];
 
-const lettersCount = letters.reduce(function(countObj, currentLetter) {
+const lettersCount = letters.reduce(function (countObj, currentLetter) {
   if (currentLetter in countObj) {
     countObj[currentLetter]++;
   } else {
@@ -184,15 +194,13 @@ student artists based on their discipline of art for their final showcase.
 Our start value might look like this:
 
 ```js
-
 const artsShowcases = {
-  "Dance": [],
-  "Visual": [],
-  "Music": [],
-  "Theater": [],
-  "Writing": []
-}
-
+  Dance: [],
+  Visual: [],
+  Music: [],
+  Theater: [],
+  Writing: [],
+};
 ```
 
 Imagine we also have a `studentSorter` object that includes a `showcaseAssign()`
@@ -212,9 +220,9 @@ start value of `artsShowcases` as the arguments. The callback is where we'll
 push each student name into the appropriate showcase:
 
 ```js
-incomingStudents.reduce(function(showcases, student) { 
-  showcases[studentSorter.showcaseAssign(student)].push(student)
-}, artsShowcases)
+incomingStudents.reduce(function (showcases, student) {
+  showcases[studentSorter.showcaseAssign(student)].push(student);
+}, artsShowcases);
 ```
 
 Let's break this down: `.reduce()` executes the callback for each student name
@@ -227,10 +235,10 @@ student name and the updated value of `artsShowcases` as the arguments. Once
 `reduce()` has iterated through all the students in `incomingStudents`, it
 returns the final value of `artsShowcases`.
 
-Then we can then access the list of students in any Arts Showcase:
+We can then access the list of students in any Arts Showcase:
 
 ```js
-artsShowcases["Visual"] //=> [yishayGarbasz, wuTsang, mickaleneThomas]
+artsShowcases["Visual"]; //=> [yishayGarbasz, wuTsang, mickaleneThomas]
 ```
 
 ## Lab: Use `reduce()` to Create a Single Aggregate of All Items in a List
@@ -239,7 +247,7 @@ Let's say we are hard at work in the battery factory. We've assembled several
 batches of batteries today. Let's count how many assembled batteries we ended
 up with.
 
-* Create a new variable called `totalBatteries`, which holds the sum of all of
+- Create a new variable called `totalBatteries`, which holds the sum of all of
   the battery amounts in the `batteryBatches` array. (Note that the
   `batteryBatches` variable has been provided for you in `index.js`.) Naturally,
   you should use `reduce()` for this!
@@ -264,4 +272,4 @@ common functionality. It can also make our code more efficient and expressive.
 
 ## Resources
 
-* [MDN: Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+- [MDN: Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
